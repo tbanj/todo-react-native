@@ -1,7 +1,7 @@
 /* eslint-disable prettier/prettier */
 import React from 'react';
 import { FlatList, View, ScrollView } from 'react-native';
-import ListItem from '../listItem/ListItem'
+import ListItem from '../listItem/ListItem';
 const PlaceList = (props) => {
     return (
         <FlatList
@@ -12,7 +12,7 @@ const PlaceList = (props) => {
                     placeImage={info.item.image}
                     reImage={info.item.remoteImage}
                     unit={info.item.key}
-                    onItemPressed={() => props.onItemDeleted(info.item.key)}
+                    onItemPressed={() => props.onItemSelected(info.item.key)}
                 />
             )}
         />
@@ -23,7 +23,7 @@ const PlaceList = (props) => {
 //         placeName={place}
 //         places={props.places}
 //         unit={index}
-//         onItemPressed={() => props.onItemDeleted(index)}
+//         onItemPressed={() => props.onItemSelected(index)}
 //     />
 
 export default PlaceList;

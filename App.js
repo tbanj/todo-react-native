@@ -13,19 +13,50 @@ import { StyleSheet, View, TextInput, StatusBar, Button } from 'react-native';
 
 // import { Header, LearnMoreLinks, Colors } from 'react-native/Libraries/NewAppScreen';
 import PlaceList from './src/components/placeList/PlaceList';
+import PlaceDetail from './src/components/placedetail/PlaceDetail';
 import PlaceImage from './src/assets/theater.jpeg';
+
 const App: () => React$Node = () => {
   const [placeName, setPlaceName] = useState('');
   const [places, setPlaces] = useState([]);
+  const [placedSelected, setPlaceSelected] = useState(null);
+  const [modalVisible, setModalVisible] = useState(false);
 
   const placeNameChangeHandler = (event) => {
     setPlaceName(event);
+  };
+
+  const changeModalState = (data) => {
+    setModalVisible(data);
   };
 
   const placeDeletedHandler = (data) => {
     const newSate = [...places];
     const removeText = newSate.filter((plac, ind) => plac.key !== data);
     setPlaces(removeText);
+    setModalVisible(false);
+  };
+
+
+  const placeSelectedHandler = (data) => {
+    // const newSate = [...places];
+    // const removeText = newSate.filter((plac, ind) => plac.key !== data);
+    // setPlaces(removeText);
+
+    // setPlaceSelected(prevState => {
+    //   return {
+    //     placedSelected: prevState.places.find(place => { return place.key === data; }),
+    //   };
+    // });
+
+    const newSate = [...places];
+    const selectedText = newSate.find((place, ind) => place.key === data);
+    // alert(`data ${data}  ${places[0].key} selectedText ${selectedText.name}`);
+    setPlaceSelected(selectedText);
+    setModalVisible(true);
+    // alert(Object.keys(placedSelected));
+    // alert(` ${placedSelected.name}`)
+
   };
 
   /* Text node can't be styled as View node for Text Node to be well styled
@@ -36,7 +67,7 @@ const App: () => React$Node = () => {
   //     placeName={place}
   //     places={places}
   //     unit={index}
-  //     onItemPressed={placeDeletedHandler}
+  //     onItemPressed={placeSelectedHandler}
   //   />
   // ));
 
@@ -71,7 +102,9 @@ const App: () => React$Node = () => {
       */}
       {/* <ScrollView style={styles.listContainer}>{placesOutput}</ScrollView> */}
       <View style={styles.listContainer}>
-        <PlaceList places={places} onItemDeleted={placeDeletedHandler} />
+        {modalVisible === true && <PlaceDetail selectedPlace={placedSelected} onItemDeleted={placeDeletedHandler}
+          changeModalState={changeModalState} modalVisible={modalVisible} />}
+        <PlaceList places={places} onItemSelected={placeSelectedHandler} />
       </View>
     </View>
   );
