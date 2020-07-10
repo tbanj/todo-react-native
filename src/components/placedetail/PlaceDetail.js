@@ -11,7 +11,7 @@ import {
     TouchableHighlight,
     View,
 } from 'react-native';
-
+import Feather from 'react-native-vector-icons/Feather';
 const PlaceDetail = (props) => {
     return (
         <View style={styles.centeredView}>
@@ -41,6 +41,13 @@ const PlaceDetail = (props) => {
                             >
                                 <Text style={styles.textStyle}>Hide Modal</Text>
                             </TouchableHighlight>
+                            <View>
+                            {/* <Text>
+                            <Icon name="ios-basket" size={30} color="#900" />;
+          </Text> */}
+                            <Feather name="activity" style={{fontSize: 50}} />
+                            </View>
+                     
                         </View>
                     </View>
                 </View>
